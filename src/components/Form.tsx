@@ -9,14 +9,21 @@ export default function Form() {
     calories: "" as unknown as number,
   });
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-    const isNumberField = ['category', 'calories'].includes(e.target.id);
+  const handleChange = (
+    e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) => {
+    const isNumberField = ["category", "calories"].includes(e.target.id);
 
     setActivity({
       ...activity,
-      [e.target.id]: isNumberField ? +e.target.value: e.target.value
-    })
-  }
+      [e.target.id]: isNumberField ? +e.target.value : e.target.value,
+    });
+  };
+
+  const isValidActivity = (): boolean => {
+    const { name, calories } = activity;
+    return name.trim() !== "" && calories > 0;
+  };
 
   return (
     <form className="space-y-5 bg-white shadow p-10 rounded-lg">
@@ -71,8 +78,9 @@ export default function Form() {
 
       <input
         type="submit"
-        className="bg-gray-800 hover:bg-gray-900 w-full p-2 uppercase text-white cursor-pointer"
+        className="bg-gray-800 hover:bg-gray-900 w-full p-2 uppercase text-white cursor-pointer disabled:opacity-10"
         value="Guardar Comida o Guardar Ejercicio"
+        disabled={!isValidActivity()}
       />
     </form>
   );
