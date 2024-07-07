@@ -1,13 +1,22 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, Dispatch, FormEvent, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { categories } from "../data/categories";
+import { ActivityActions } from "../reducers/activityReducer";
 import { Activity } from "../types";
 
-export default function Form() {
-  const [activity, setActivity] = useState<Activity>({
-    category: 1,
-    name: "",
-    calories: "" as unknown as number,
-  });
+type FormProps = {
+  dispatch: Dispatch<ActivityActions>;
+};
+
+const initialState: Activity = {
+  id: uuidv4(),
+  category: 1,
+  name: "",
+  calories: "" as unknown as number,
+};
+
+export default function Form({ dispatch }: FormProps) {
+  const [activity, setActivity] = useState<Activity>(initialState);
 
   const handleChange = (
     e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
@@ -27,11 +36,18 @@ export default function Form() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  }
+
+    dispatch({ type: "SAVE_ACTIVITY", payload: { newActivity: activity } });
+
+    setActivity({
+      ...initialState,
+      id: uuidv4(),
+    });
+  };
 
   return (
-    <form 
-      className="space-y-5 bg-white shadow p-10 rounded-lg" 
+    <form
+      className="space-y-5 bg-white shadow p-10 rounded-lg"
       onSubmit={handleSubmit}
     >
       <div className="grid grid-cols-1 gap-3">
