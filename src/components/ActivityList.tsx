@@ -1,4 +1,4 @@
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import { Dispatch, useMemo } from "react";
 import { categories } from "../data/categories";
 import { ActivityActions } from "../reducers/activityReducer";
@@ -55,6 +55,17 @@ export default function ActivityList({
               }
             >
               <PencilSquareIcon className="h-8 w-8 text-gray-800" />
+            </button>
+
+            <button
+              onClick={() =>
+                dispatch({
+                  type: "DELETE_ACTIVITY",
+                  payload: { id: activity.id },
+                })
+              }
+            >
+              <XCircleIcon className="h-8 w-8 text-red-500" />
             </button>
           </div>
         </div>
