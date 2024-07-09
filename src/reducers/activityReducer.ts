@@ -3,7 +3,8 @@ import { Activity } from "../types/index";
 export type ActivityActions =
   | { type: "SAVE_ACTIVITY"; payload: { newActivity: Activity } }
   | { type: "SET_ACTIVE_ID"; payload: { id: Activity["id"] } }
-  | { type: "DELETE_ACTIVITY"; payload: { id: Activity["id"] } };
+  | { type: "DELETE_ACTIVITY"; payload: { id: Activity["id"] } }
+  | { type: "RESTART_APP" };
 
 export type ActivityState = {
   activities: Activity[];
@@ -55,6 +56,13 @@ export const activityReducer = (
       activities: state.activities.filter(
         (activity) => activity.id !== action.payload.id
       ),
+    };
+  }
+
+  if (action.type === "RESTART_APP") {
+    return {
+      activities: [],
+      activeId: '',
     };
   }
 
