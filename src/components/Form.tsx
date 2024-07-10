@@ -2,7 +2,7 @@ import { ChangeEvent, Dispatch, FormEvent, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { categories } from "../data/categories";
 import { ActivityActions, ActivityState } from "../reducers/activityReducer";
-import { Activity } from "../types";
+import type { Activity } from "../types";
 
 type FormProps = {
   state: ActivityState;

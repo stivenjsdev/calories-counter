@@ -2,7 +2,7 @@ import { PencilSquareIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import { Dispatch, useMemo } from "react";
 import { categories } from "../data/categories";
 import { ActivityActions } from "../reducers/activityReducer";
-import { Activity } from "../types";
+import type { Activity } from "../types";
 
 type ActivityListProps = {
   activities: Activity[];
