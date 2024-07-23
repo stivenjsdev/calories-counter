@@ -1,13 +1,8 @@
-import { ChangeEvent, Dispatch, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { categories } from "../data/categories";
-import { ActivityActions, ActivityState } from "../reducers/activityReducer";
+import { useActivity } from "../hooks/useActivity";
 import type { Activity } from "../types";
-
-type FormProps = {
-  state: ActivityState;
-  dispatch: Dispatch<ActivityActions>;
-};
 
 const initialState: Activity = {
   id: uuidv4(),
@@ -16,7 +11,8 @@ const initialState: Activity = {
   calories: "" as unknown as number,
 };
 
-export default function Form({ state, dispatch }: FormProps) {
+export default function Form() {
+  const { state, dispatch } = useActivity();
   const [activity, setActivity] = useState<Activity>(initialState);
 
   useEffect(() => {
@@ -96,14 +92,14 @@ export default function Form({ state, dispatch }: FormProps) {
 
       <div className="grid grid-cols-1 gap-3">
         <label htmlFor="calories" className="font-bold">
-          Calorias:
+          Calorías:
         </label>
         <input
           type="number"
           name=""
           id="calories"
           className="border border-slate-300 p-2 rounded-lg"
-          placeholder="Calorias. Ej. 200 o 500"
+          placeholder="Calorías. Ej. 200 o 500"
           value={activity.calories}
           onChange={handleChange}
         />
